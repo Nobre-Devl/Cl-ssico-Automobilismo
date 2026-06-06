@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://classico-automobilismo.onrender.com",
 });
 
 export const loginUser = async (email, password) => {

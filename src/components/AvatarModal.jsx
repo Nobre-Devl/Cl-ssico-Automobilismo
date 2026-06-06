@@ -1,3 +1,5 @@
+import { getImageUrl } from "../services/api";
+
 export default function AvatarModal({ isOpen, onClose, onSelect, cars }) {
   if (!isOpen) return null;
 
@@ -21,8 +23,9 @@ export default function AvatarModal({ isOpen, onClose, onSelect, cars }) {
                 className="w-12 h-12 rounded-full overflow-hidden border-2 border-transparent hover:border-[#E53935] transition-all focus:outline-none"
               >
                 <img
-                  src={car.img}
+                  src={getImageUrl(car.img)}
                   alt={car.name}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     e.target.onerror = null;

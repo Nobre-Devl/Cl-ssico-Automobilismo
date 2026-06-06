@@ -4,6 +4,14 @@ export const api = axios.create({
   baseURL: "https://classico-automobilismo.onrender.com",
 });
 
+export const getImageUrl = (imageName) => {
+  if (!imageName) return "/img/placeholder.png";
+
+  const fileName = imageName.split("/").pop().replace(/\s+/g, "_");
+
+  return `https://cdn.jsdelivr.net/gh/Nobre-Devl/Cl-ssico-Automobilismo@main/public/img/${fileName}`;
+};
+
 export const loginUser = async (email, password) => {
   try {
     const response = await api.get(
@@ -38,7 +46,6 @@ export const updatePasswordByEmail = async (email, newPassword) => {
     }
 
     const user = response.data[0];
-
     const updatedUser = { ...user, password: newPassword };
     await api.put(`/users/${user.id}`, updatedUser);
 

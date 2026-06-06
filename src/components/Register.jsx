@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../services/api";
+import { registerUser, getImageUrl } from "../services/api";
 import { carsData } from "../data/cars";
 import AvatarModal from "./AvatarModal";
 
@@ -95,7 +95,9 @@ export default function Register() {
                 onClick={() => setIsModalOpen(true)}
               >
                 <img
-                  src={formData.profileImg}
+                  src={getImageUrl(formData.profileImg)}
+                  loading="lazy"
+                  alt="Avatar"
                   className="w-full h-full object-cover"
                 />
               </div>

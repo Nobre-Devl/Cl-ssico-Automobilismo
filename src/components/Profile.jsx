@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../services/api";
+import { api, getImageUrl } from "../services/api";
 import { carsData } from "../data/cars";
 import AvatarModal from "./AvatarModal";
 
@@ -58,7 +58,11 @@ export default function Profile() {
                 onClick={() => setIsModalOpen(true)}
               >
                 <img
-                  src={user.profileImg || "/img/placeholder.png"}
+                  src={
+                    user.profileImg
+                      ? getImageUrl(user.profileImg)
+                      : "/img/placeholder.png"
+                  }
                   alt="Avatar"
                   className="w-20 h-20 rounded-full object-cover border-2 border-[#E53935]"
                   onError={(e) => {

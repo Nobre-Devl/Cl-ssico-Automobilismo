@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { api } from "../services/api";
+import { api, getImageUrl } from "../services/api";
 import { carsData } from "../data/cars";
 
 export default function Catalog() {
@@ -91,10 +91,10 @@ export default function Catalog() {
                   className="bg-[#111111] rounded-2xl overflow-hidden border border-white/5 hover:border-white/20 transition-all cursor-pointer"
                 >
                   <img
-                    src={car.img}
+                    src={getImageUrl(car.img)}
                     alt={car.name}
+                    loading="lazy"
                     className="w-full h-60 object-cover"
-                    onError={(e) => (e.target.src = "/img/placeholder.png")}
                   />
                   <div className="p-6">
                     <span className="text-[10px] font-bold text-gray-400 uppercase">

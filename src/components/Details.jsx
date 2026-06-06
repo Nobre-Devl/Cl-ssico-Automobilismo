@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { carsData } from "../data/cars";
+import { getImageUrl } from "../services/api";
 
 export default function Details() {
   const { id } = useParams();
@@ -35,7 +36,7 @@ export default function Details() {
           <div className="space-y-4">
             <div className="rounded-3xl overflow-hidden border border-white/5 bg-[#111] shadow-2xl">
               <img
-                src={car.img}
+                src={getImageUrl(car.img)}
                 alt={car.name}
                 className="w-full h-auto object-cover"
               />

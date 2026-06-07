@@ -144,6 +144,16 @@ export default function Register() {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
+              <div className="mt-3 flex flex-col gap-1">
+                {rules.map((rule, index) => (
+                  <span
+                    key={index}
+                    className={`text-[10px] flex items-center gap-2 ${rule.test(formData.password) ? "text-green-500" : "text-gray-500"}`}
+                  >
+                    {rule.test(formData.password) ? "●" : "○"} {rule.label}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div>
@@ -162,7 +172,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#E53935] text-white font-bold py-4 rounded-xl hover:bg-red-600 transition-colors mt-4"
+              className="w-full bg-[#E53935] text-white font-bold py-4 rounded-xl hover:bg-red-600 transition-colors mt-2"
             >
               {loading ? "PROCESSANDO..." : "CRIAR CONTA"}
             </button>

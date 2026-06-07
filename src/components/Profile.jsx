@@ -11,8 +11,16 @@ export default function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    // Busca o ID do usuário que salvamos no localStorage durante o login
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
+
     api
-      .get("/users/1")
+      .get(`/users/${userId}`)
       .then((response) => {
         setUser(response.data);
         setLoading(false);
@@ -21,7 +29,7 @@ export default function Profile() {
         console.error("Erro ao buscar perfil:", error);
         setLoading(false);
       });
-  }, []);
+  }, [navigate]);
 
   const handleUpdateAvatar = (newImg) => {
     const updatedUser = { ...user, profileImg: newImg };
@@ -32,6 +40,8 @@ export default function Profile() {
   };
 
   const handleLogout = () => {
+    // Limpa o localStorage antes de sair para garantir segurança
+    localStorage.removeItem("userId");
     navigate("/login");
   };
 
@@ -58,11 +68,7 @@ export default function Profile() {
                 onClick={() => setIsModalOpen(true)}
               >
                 <img
-                  src={
-                    user.profileImg
-                      ? getImageUrl(user.profileImg)
-                      : "/img/placeholder.png"
-                  }
+                  src={getImageUrl(user.profileImg)}
                   alt="Avatar"
                   className="w-20 h-20 rounded-full object-cover border-2 border-[#E53935]"
                   onError={(e) => {

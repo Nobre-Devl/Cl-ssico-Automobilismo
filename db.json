@@ -5,21 +5,7 @@
       "name": "Nobre",
       "email": "teste@gmail.com",
       "password": "123@senha@@",
-      "profileImg": "/img/lambo_svj.png"
-    },
-    {
-      "name": "Nobre",
-      "email": "teste2@gmail.com",
-      "password": "Teste123!",
-      "id": "okn0Yqq7_UU"
-    },
-    {
-      "name": "Nobre",
-      "email": "teste@gmail.com",
-      "password": "Teste123!",
-      "profileImg": "/img/ford_gt.png",
-      "id": "uDK2FW2cR6U"
+      "profileImg": "lambo_svj.png"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

@@ -10,10 +10,14 @@ export default function Catalog() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    api
-      .get("/users/1")
-      .then((res) => setUser(res.data))
-      .catch((err) => console.error("Erro ao buscar usuário", err));
+    const userId = localStorage.getItem("userId");
+
+    if (userId) {
+      api
+        .get(`/users/${userId}`)
+        .then((res) => setUser(res.data))
+        .catch((err) => console.error("Erro ao buscar usuário", err));
+    }
 
     const timer = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(timer);
@@ -34,7 +38,11 @@ export default function Catalog() {
       <header className="w-full px-6 py-5 border-b border-white/5 bg-[#0a0a0a]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => navigate("/catalogo")}>
-            <img src="/img/logo.png" alt="Logo" className="h-10 w-auto" />
+            <img
+              src={getImageUrl("logo.png")}
+              alt="Logo"
+              className="h-10 w-auto"
+            />
           </div>
 
           <div className="flex items-center gap-6">
@@ -49,7 +57,7 @@ export default function Catalog() {
 
             {user && (
               <img
-                src={user.profileImg}
+                src={getImageUrl(user.profileImg)}
                 alt="Perfil"
                 className="w-10 h-10 rounded-full border border-[#E53935] object-cover cursor-pointer hover:scale-105 transition-transform"
                 onClick={() => navigate("/perfil")}
@@ -95,6 +103,7 @@ export default function Catalog() {
                     alt={car.name}
                     loading="lazy"
                     className="w-full h-60 object-cover"
+                    onError={(e) => (e.target.src = "/img/placeholder.png")}
                   />
                   <div className="p-6">
                     <span className="text-[10px] font-bold text-gray-400 uppercase">

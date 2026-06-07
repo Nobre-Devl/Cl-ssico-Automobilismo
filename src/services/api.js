@@ -17,13 +17,16 @@ export const loginUser = async (email, password) => {
     const response = await api.get(
       `/users?email=${email}&password=${password}`,
     );
+
     if (response.data.length > 0) {
-      return { success: true, user: response.data[0] };
+      const user = response.data[0];
+      localStorage.setItem("userId", user.id);
+      return { success: true, user: user };
     }
-    return { success: false, message: "Credenciais inválidas" };
+    return { success: false, message: "E-mail ou senha incorretos." };
   } catch (error) {
     console.error("Erro no login:", error);
-    return { success: false, message: "Erro no servidor" };
+    return { success: false, message: "Erro de conexão com o servidor." };
   }
 };
 
@@ -33,7 +36,7 @@ export const registerUser = async (userData) => {
     return { success: true, user: response.data };
   } catch (error) {
     console.error("Erro ao cadastrar:", error);
-    return { success: false, message: "Erro ao realizar cadastro" };
+    return { success: false, message: "Erro ao realizar cadastro." };
   }
 };
 
